@@ -17,28 +17,17 @@
 | 全站 UI | 原始 / 翻译 两态 | 原始 / 翻译 / **双语** 三态 |
 | 标签翻译 | 原始 / 翻译 两态 | 原始 / 翻译 / **双语** 三态 |
 | 默认配置 | UI=翻译、标签=翻译 | UI=**翻译**、标签=**双语** |
-| 版本号 | 如 `3.4.9` | 上游版本 + `-a`（如 `3.4.9-a`），CI 发布为 prerelease |
-| 身份 | EhSyringe / EhTagTranslation | EhBilingual / GitRuozhi |
-| 更新日志 | 维护 `CHANGELOG.md` | 已移除，历史见上游仓库 |
-| 双语格式 | 无 | 短文本 `English | 中文`，长文本换行 |
+| 版本号 | 如 `3.4.9` | 上游版本 + `-a`（如 `3.4.9-a`） |
 
-## 二、更新方式
+## 二、更新
 
 **1. 词典等共享更新：直接同步上游**
-
-```bash
-git fetch upstream master
-git checkout upstream/master -- src/services/ui-translation/data/
-git add -A && git commit -m "sync: 同步上游翻译词典"
-```
 
 **2. 其他更新（核心逻辑、新功能）：人工或 Agent 手动合入**
 
 不直接 merge/rebase——本分支删除了扩展代码并大改核心逻辑，直接合并会复活已删文件、覆盖双语逻辑。逐文件核对，保留本分支的双语与精简改动。
 
-## 三、注意事项
+## 三、注意
 
 - 同步是单向的：只从上游拉取，不向上游推送
 - 上游发布新版本后，本分支版本号随之提升（如 `3.4.10-a`）
-- 同步后运行 `pnpm lint && pnpm build:monkey` 并人工回归
-- 身份元数据变化时，老用户需重新安装脚本
