@@ -1,17 +1,14 @@
-# EhBilingual - E 站中英双语界面
+# EhBilingual - E 站中英双语标签+双语页面
 
 这是一个 E 站（E-Hentai / ExHentai / EHWiki）中英双语用户脚本，基于 [EhSyringe](https://github.com/EhTagTranslation/EhSyringe)。它在保留英文原文的同时显示中文翻译，支持「原始 / 翻译 / 双语」三态切换。<br><sub>This is a Chinese-English bilingual userscript for E-Hentai / ExHentai / EHWiki based on EhSyringe. It does not completely replace the site with Chinese, but shows Chinese translation while retaining the original English text, with Original / Translated / Bilingual modes for both the UI and tags.</sub>
 
 ## 安装 | Install
 
-1. 安装用户脚本管理器 | Install a userscript manager：
-   - [Tampermonkey](https://www.tampermonkey.net/)
-   - [Violentmonkey](https://violentmonkey.github.io/)
-   - [Sleazy Fork 安装帮助 | Installation help](https://sleazyfork.org/help/installing-user-scripts)
-2. 安装脚本 | Install the script：
-   - [GitHub Release 下载 v3.4.9-20260818a | Download v3.4.9-20260818a from GitHub Releases](https://github.com/GitRuozhi/EhBilingual/releases/download/v3.4.9-20260818a/ehbilingual.user.js)
-   - Sleazy Fork 页面（待发布 | Coming soon）
-3. [访问 GitHub 获取源码 | Visit GitHub for Code](https://github.com/GitRuozhi/EhBilingual/)
+1. [安装用户脚本管理器 | Install a userscript manager](https://greasyfork.org/)
+
+2. [安装脚本 | Install the script]（待发布 | Coming soon）
+
+> [访问 GitHub 获取源码 | Visit GitHub for Code](https://github.com/GitRuozhi/EhBilingual/)
 
 ## 预览 | Preview
 
@@ -20,19 +17,19 @@
         <td><strong>搜索列表 | Search list</strong></td>
     </tr>
     <tr>
-        <td><img src="Preview/search-list.jpeg" width="400"></td>
+        <td><img src="https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/Preview/search-list.jpeg" width="400"></td>
     </tr>
     <tr>
         <td><strong>详情页 | Gallery detail</strong></td>
     </tr>
     <tr>
-        <td><img src="Preview/gallery-detail.jpeg" width="400"></td>
+        <td><img src="https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/Preview/gallery-detail.jpeg" width="400"></td>
     </tr>
     <tr>
         <td><strong>设置页 | Settings</strong></td>
     </tr>
     <tr>
-        <td><img src="Preview/settings.jpeg" width="400"></td>
+        <td><img src="https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/Preview/settings.jpeg" width="400"></td>
     </tr>
 </table>
 
@@ -51,10 +48,6 @@
 - 兼容 E-Hentai-Downloader、熊猫书签、ExResurrect 等第三方脚本，支持 Via、Alook 等手机浏览器。<br><sub>Compatible with E-Hentai-Downloader, Panda bookmarklet, ExResurrect and other third-party scripts, and supports mobile browsers such as Via and Alook.</sub>
 
 - 修改基于版本：`3.4.9`，本分支版本号：`3.4.9-20260818a`。<br><sub>Revised based on version: `3.4.9`, this branch version number: `3.4.9-20260818a`.</sub>
-
-## 上游同步 | Upstream Sync
-
-主分支（上游 EhSyringe）更新后如何同步到本分支，见 [UPSTREAM.md](UPSTREAM.md)。<br><sub>How to sync updates from the upstream EhSyringe branch: see UPSTREAM.md.</sub>
 
 ## 感谢 | Thanks
 
