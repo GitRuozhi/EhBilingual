@@ -5,11 +5,9 @@ import { Introduce } from 'plugin/introduce';
 import { TagTip } from 'plugin/tag-tip';
 import { Syringe } from 'plugin/syringe';
 import { AutoUpdate } from 'plugin/auto-update';
-import { TagContextMenu } from 'plugin/tag-context-menu';
 import { DatabaseUpdater } from 'plugin/database-updater';
 import { Suggest } from 'plugin/suggest';
 import { TagDatabase } from 'plugin/tag-database';
-import { ImageContextMenu } from 'plugin/image-context-menu';
 
 import { createPopup } from './popup-host';
 
@@ -19,8 +17,6 @@ function main(): void {
     Container.get(Syringe);
 
     function start(): void {
-        Container.get(TagContextMenu);
-        Container.get(ImageContextMenu);
         Container.get(Suggest);
         Container.get(AutoUpdate);
         Container.get(TagTip);

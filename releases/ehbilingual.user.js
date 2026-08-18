@@ -23488,91 +23488,6 @@ let AutoUpdate = class AutoUpdate {
 };
 AutoUpdate = __decorate([Service(), __metadata("design:paramtypes", [Logger, Storage, messaging_Messaging])], AutoUpdate);
 
-;// ./src/providers/user-script/menu.ts
-
-
-
-
-
-let MenuProvider = class MenuProvider {
-  constructor(logger) {
-    this.logger = logger;
-    logger.warn("\u4E0D\u652F\u6301\u53F3\u952E\u83DC\u5355");
-  }
-  createMenu(_info) {
-    return;
-  }
-};
-MenuProvider = __decorate([Service(), __metadata("design:paramtypes", [Logger])], MenuProvider);
-const provider = services_Container.get(MenuProvider);
-const createMenu = provider.createMenu.bind(provider);
-;// ./src/providers/user-script/utils.ts
-const _openInTab = typeof GM_openInTab == 'function' ? GM_openInTab : function (url) {
-  const opened = window.open(url);
-  return {
-    close() {
-      var _this$onclose;
-      opened === null || opened === void 0 || opened.close();
-      (_this$onclose = this.onclose) === null || _this$onclose === void 0 || _this$onclose.call(this);
-      this.closed = true;
-    },
-    closed: false
-  };
-};
-function openInTab(url) {
-  _openInTab(url, {
-    active: true,
-    insert: true,
-    setParent: true
-  });
-}
-function setBadge(info) {
-  const badge = document.getElementById('eh-syringe-popup-badge');
-  if (badge) {
-    if (info.text != null) {
-      badge.innerText = info.text;
-      badge.style.visibility = info.text ? 'visible' : 'hidden';
-    }
-    if (info.background != null) {
-      badge.style.background = info.background;
-    }
-  }
-}
-;// ./src/plugin/tag-context-menu.ts
-
-
-
-
-
-
-let TagContextMenu = class TagContextMenu {
-  constructor(tagging) {
-    this.tagging = tagging;
-    this.documentUrlPatterns = ['*://exhentai.org/*', '*://exhentai55ld2wyap5juskbm67czulomrouspdacjamjeloj7ugjbsad.onion/*', '*://e-hentai.org/*', '*://*.exhentai.org/*', '*://*.exhentai55ld2wyap5juskbm67czulomrouspdacjamjeloj7ugjbsad.onion/*', '*://*.e-hentai.org/*'];
-    this.title = '提交标签翻译';
-    this.targetUrlPatterns = ['*://exhentai.org/tag/*', '*://exhentai55ld2wyap5juskbm67czulomrouspdacjamjeloj7ugjbsad.onion/tag/*', '*://e-hentai.org/tag/*', '*://*.exhentai.org/tag/*', '*://*.exhentai55ld2wyap5juskbm67czulomrouspdacjamjeloj7ugjbsad.onion/tag/*', '*://*.e-hentai.org/tag/*'];
-    this.contexts = ['link'];
-    this.onclick = info => {
-      var _info$url, _info$url$split$pop$r, _info$url$split$pop, _seg$pop;
-      if (!((_info$url = info.url) !== null && _info$url !== void 0 && includes_default()(_info$url).call(_info$url, '/tag/'))) {
-        return;
-      }
-      const seg = (_info$url$split$pop$r = (_info$url$split$pop = info.url.split('/').pop()) === null || _info$url$split$pop === void 0 ? void 0 : _info$url$split$pop.replace(/\+/g, ' ').split(':')) !== null && _info$url$split$pop$r !== void 0 ? _info$url$split$pop$r : [];
-      const namespace = seg.length <= 1 ? 'temp' : seg[0];
-      const key = (_seg$pop = seg.pop()) !== null && _seg$pop !== void 0 ? _seg$pop : '';
-      openInTab(this.tagging.editorUrl({
-        namespace,
-        key
-      }));
-    };
-    this.init();
-  }
-  init() {
-    createMenu(this);
-  }
-};
-TagContextMenu = __decorate([Service(), __metadata("design:paramtypes", [Tagging])], TagContextMenu);
-
 ;// ./src/services/http.ts
 
 
@@ -23738,6 +23653,38 @@ let Database = class Database {
 };
 Database = __decorate([Service(), __metadata("design:paramtypes", [Http, Storage, Logger])], Database);
 
+;// ./src/providers/user-script/utils.ts
+const _openInTab = typeof GM_openInTab == 'function' ? GM_openInTab : function (url) {
+  const opened = window.open(url);
+  return {
+    close() {
+      var _this$onclose;
+      opened === null || opened === void 0 || opened.close();
+      (_this$onclose = this.onclose) === null || _this$onclose === void 0 || _this$onclose.call(this);
+      this.closed = true;
+    },
+    closed: false
+  };
+};
+function openInTab(url) {
+  _openInTab(url, {
+    active: true,
+    insert: true,
+    setParent: true
+  });
+}
+function setBadge(info) {
+  const badge = document.getElementById('eh-syringe-popup-badge');
+  if (badge) {
+    if (info.text != null) {
+      badge.innerText = info.text;
+      badge.style.visibility = info.text ? 'visible' : 'hidden';
+    }
+    if (info.background != null) {
+      badge.style.background = info.background;
+    }
+  }
+}
 ;// ./src/services/badge-loading.ts
 
 
@@ -24593,36 +24540,6 @@ let TagDatabase = class TagDatabase {
   }
 };
 TagDatabase = __decorate([Service(), __metadata("design:paramtypes", [Storage, Logger, messaging_Messaging, Tagging])], TagDatabase);
-
-;// ./src/plugin/image-context-menu.ts
-
-
-
-
-
-
-let ImageContextMenu = class ImageContextMenu {
-  constructor() {
-    this.documentUrlPatterns = ["*://".concat(EX, "/*"), "*://".concat(EXU, "/*"), "*://".concat(EH, "/*"), "*://*.".concat(EX, "/*"), "*://*.".concat(EXU, "/*"), "*://*.".concat(EH, "/*")];
-    this.title = "\u663E\u793A\u6240\u6709\u5305\u542B\u6B64\u56FE\u50CF\u7684\u56FE\u5E93";
-    this.targetUrlPatterns = ["*://".concat(EX, "/t/*.jpg"), "*://".concat(EXU, "/t/*.jpg"), "*://s.".concat(EX, "/t/*.jpg"), "*://s.".concat(EXU, "/t/*.jpg"), "*://".concat(EHGT, "/*.jpg"), "*://ul.".concat(EHGT, "/*.jpg"), "*://*.".concat(HATH, ":*/h/*"), "*://*.".concat(HATH, "/h/*")];
-    this.contexts = ['image', 'link'];
-    this.onclick = info => {
-      if (!info.url) return;
-      const url = new (url_default())(info.url);
-      const match = /[a-f0-9]{40}/i.exec(url.pathname);
-      if (!match) return;
-      let base = "https://".concat(EX);
-      if (isEhGt(url.hostname)) base = "https://".concat(EH);else if (isUnion(url.hostname)) base = "http://".concat(EXU);
-      openInTab("".concat(base, "/?f_shash=").concat(match[0]));
-    };
-    this.init();
-  }
-  init() {
-    createMenu(this);
-  }
-};
-ImageContextMenu = __decorate([Service(), __metadata("design:paramtypes", [])], ImageContextMenu);
 
 // EXTERNAL MODULE: ./node_modules/.pnpm/@babel+runtime-corejs3@7.29.7/node_modules/@babel/runtime-corejs3/core-js-stable/number/parse-float.js
 var parse_float = __webpack_require__(49337);
@@ -25506,15 +25423,11 @@ function createPopup() {
 
 
 
-
-
 function main() {
   services_Container.get(DatabaseUpdater);
   services_Container.get(TagDatabase);
   services_Container.get(Syringe);
   function start() {
-    services_Container.get(TagContextMenu);
-    services_Container.get(ImageContextMenu);
     services_Container.get(Suggest);
     services_Container.get(AutoUpdate);
     services_Container.get(TagTip);
