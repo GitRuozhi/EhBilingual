@@ -19,7 +19,7 @@ export class BadgeLoading {
     loadingString: string[] = [''];
     color = '';
 
-    extname = 'EhSyringe';
+    extname = 'EhBilingual';
 
     private setColor(color = '#4A90E2'): void {
         setBadge({ background: color });

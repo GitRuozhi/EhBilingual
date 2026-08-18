@@ -16,6 +16,8 @@ export const enum ImageLevel {
 export interface ConfigData {
     translateUi: boolean;
     translateTag: boolean;
+    bilingualUi: boolean;
+    bilingualTag: boolean;
     translateTimestamp: boolean;
     showIntroduce: boolean;
     showIcon: boolean;
@@ -40,8 +42,6 @@ export interface StorageItems {
           };
 
     release: undefined | ReleaseCheckData;
-    /** omnibox 默认打开的页面 */
-    origin: 'https://e-hentai.org' | 'https://exhentai.org';
 }
 
 @Service()
@@ -63,6 +63,10 @@ export class Storage {
     async get<K extends keyof StorageItems>(key: K): Promise<StorageItems[K]> {
         const value = await storage.get(key);
         if (value == null) return this.defaults[key];
+        // 旧配置的 config 可能缺少新增字段，与默认值浅合并保证缺省生效
+        if (key === 'config') {
+            return { ...this.defaults.config, ...(value as unknown as ConfigData) } as StorageItems[K];
+        }
         return value as StorageItems[K];
     }
     async set<T extends keyof StorageItems>(key: T, value: StorageItems[T] | undefined): Promise<void> {
@@ -104,6 +108,8 @@ export class Storage {
         config: {
             translateUi: true,
             translateTag: true,
+            bilingualUi: false,
+            bilingualTag: true,
             translateTimestamp: true,
             showIntroduce: true,
             showIcon: true,
@@ -115,6 +121,5 @@ export class Storage {
         database: undefined,
         databaseInfo: undefined,
         release: undefined,
-        origin: 'https://e-hentai.org',
     };
 }

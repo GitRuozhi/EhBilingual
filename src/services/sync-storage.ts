@@ -28,6 +28,10 @@ export class SyncStorage {
     get<K extends keyof SyncStorageItems>(key: K): SyncStorageItems[K] {
         const value = syncStorage.get(key);
         if (value == null) return this.defaults[key];
+        // 旧配置的 config 可能缺少新增字段，与默认值浅合并保证缺省生效
+        if (key === 'config') {
+            return { ...this.defaults.config, ...(value as unknown as ConfigData) } as SyncStorageItems[K];
+        }
         return value as SyncStorageItems[K];
     }
     set<T extends keyof SyncStorageItems>(key: T, value: SyncStorageItems[T] | undefined): void {

@@ -204,7 +204,8 @@ body {
 // wiki 样式
 
 :root.ehs-wiki {
-    &.ehs-translate-tag [ehs-tag][lang|='zh-hans'] {
+    // 双语模式下标签已包含英文原文，不再追加 ehs-tag 属性内容，避免英文重复
+    &.ehs-translate-tag:not(.ehs-bilingual-tag) [ehs-tag][lang|='zh-hans'] {
         &::after {
             content: ' (' attr(ehs-tag) ')';
             font-size: 80%;

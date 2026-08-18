@@ -1,5 +1,6 @@
 import { isEx, isEh, isRepo, isWiki } from 'utils/hosts';
 import { ready } from 'utils/dom';
+import escapeHtml from 'escape-html';
 import type { EHTNamespaceNameShort } from 'interface';
 import { Service } from 'services';
 import { UiTranslation } from 'services/ui-translation';
@@ -37,6 +38,20 @@ function childNodes(node: Node): Node[] {
 const skipNodeName = new Set<string>(['TITLE', 'LINK', 'META', 'HEAD', 'SCRIPT', 'BR', 'HR', 'STYLE', 'MARK']);
 const ignoreClassName = `eh-syringe-ignore`;
 const skipElementMatcher = `.${ignoreClassName}, .${ignoreClassName} *, [translate=no], [translate=no] :not([translate=yes])`;
+
+/** 双语短文本阈值：原文长度小于此值用 ` | ` 拼接，否则换行 */
+const BILINGUAL_SHORT_MAX = 40;
+
+/**
+ * 双语显示文本：短文本 `English | 中文`，长文本换行。
+ * 注意属性值（title/placeholder 等）不支持换行，调用方需将 `\n` 降级为 ` | `。
+ */
+function formatBilingualText(original: string, translated: string): string {
+    if (!original || !translated || original === translated) {
+        return translated || original;
+    }
+    return original.length < BILINGUAL_SHORT_MAX ? `${original} | ${translated}` : `${original}\n${translated}`;
+}
 
 declare global {
     interface Window {
@@ -217,7 +232,12 @@ class TagNodeRef {
             if (!originalNs) value = `:${value}`;
             else value = `${this.service.tagging.ns(originalNs)}:${value}`;
         }
-        this.node.innerHTML = value;
+        if (this.service.config.bilingualTag) {
+            // 双语：英文原文作为文本安全转义，中文译文继续使用处理后的 HTML
+            this.node.innerHTML = `${escapeHtml(this.original)} | ${value}`;
+        } else {
+            this.node.innerHTML = value;
+        }
         this.node.setAttribute('lang', 'zh-hans');
         return true;
     }
@@ -391,6 +411,9 @@ export class Syringe {
         if (this.config.translateTag) {
             node.classList.add('ehs-translate-tag');
         }
+        if (this.config.translateTag && this.config.bilingualTag) {
+            node.classList.add('ehs-bilingual-tag');
+        }
         if (this.config.translateUi) {
             node.setAttribute('lang', 'zh-hans');
         } else {
@@ -557,18 +580,61 @@ export class Syringe {
         return undefined;
     }
 
+    /** 双语模式开关：配置映射保证 bilingualUi = true 时 translateUi 必为 true */
+    private get bilingualUi(): boolean {
+        return this.config.translateUi && this.config.bilingualUi;
+    }
+
+    /** 判断文本是否已是双语拼接结果，防止 MutationObserver 对拼接结果重复加工 */
+    private hasBilingualDisplay(text: string): boolean {
+        const sep = text.indexOf(' | ');
+        if (sep <= 0) return false;
+        const original = text.slice(0, sep);
+        const translated = text.slice(sep + 3);
+        if (this.uiData.plainReplacements.get(original) === translated) return true;
+        // 兼容正则替换派生的双语结果：对前段重新执行翻译比对
+        return this.translateUiText(original) === translated;
+    }
+
+    /** 属性值场景的双语拼接（属性不支持换行，长文本降级为 ` | `） */
+    private bilingualAttrValue(original: string, translation: string): string {
+        return formatBilingualText(original, translation).replace('\n', ' | ');
+    }
+
+    /**
+     * 文本节点双语：保留原文本节点不改动，将译文以 eh-syringe-ignore 标记的 span 追加到原文之后。
+     * 原文未动不产生新 mutation，注入的 span 命中 skipElementMatcher，两者都防止重复加工。
+     */
+    private appendBilingual(node: Text, original: string, translation: string): void {
+        const span = document.createElement('span');
+        span.classList.add(ignoreClassName);
+        if (original.length < BILINGUAL_SHORT_MAX) {
+            span.textContent = ` | ${translation}`;
+        } else {
+            span.append(document.createElement('br'), translation);
+        }
+        node.after(span);
+    }
+
     translateUi(node: Node): void {
         if (isElement(node) && node.title && typeof node.title == 'string') {
-            const translation = this.translateUiText(node.title);
-            if (translation != null) {
-                node.title = translation;
+            if (!(this.bilingualUi && this.hasBilingualDisplay(node.title))) {
+                const translation = this.translateUiText(node.title);
+                if (translation != null) {
+                    node.title = this.bilingualUi ? this.bilingualAttrValue(node.title, translation) : translation;
+                }
             }
         }
         if (isText(node)) {
             const text = node.textContent ?? '';
+            if (this.bilingualUi && this.hasBilingualDisplay(text)) return;
             const translation = this.translateUiText(text);
             if (translation != null) {
-                node.textContent = translation;
+                if (this.bilingualUi) {
+                    this.appendBilingual(node, text, translation);
+                } else {
+                    node.textContent = translation;
+                }
             }
             return;
         }
@@ -581,7 +647,8 @@ export class Syringe {
                     button.setAttribute(attr.name, attr.value);
                 }
                 button.setAttribute('ehs-input', '');
-                button.textContent = translation;
+                // 双语只改变显示文本，不改变表单真正提交的数据
+                button.textContent = this.bilingualUi ? this.bilingualAttrValue(node.value, translation) : translation;
                 node.replaceWith(button);
                 // 新元素的事件派发至原元素，兼容 MEMS
                 button.addEventListener('click', (e) => {
@@ -595,29 +662,42 @@ export class Syringe {
         if (isElement(node, 'button') && node.hasAttribute('ehs-input')) {
             // 响应 button[ehs-input] 的 value 变更
             const translation = this.translateUiText(node.value);
-            node.textContent = translation ?? node.value;
+            node.textContent =
+                translation == null
+                    ? node.value
+                    : this.bilingualUi
+                      ? this.bilingualAttrValue(node.value, translation)
+                      : translation;
             return;
         }
         if ((isElement(node, 'input') || isElement(node, 'textarea')) && node.placeholder) {
+            if (this.bilingualUi && this.hasBilingualDisplay(node.placeholder)) return;
             const translation = this.translateUiText(node.placeholder);
             if (translation != null) {
-                node.placeholder = translation;
+                node.placeholder = this.bilingualUi
+                    ? this.bilingualAttrValue(node.placeholder, translation)
+                    : translation;
             }
             return;
         }
         if (isElement(node, 'optgroup')) {
-            const translation = this.translateUiText(node.label);
-            if (translation != null) {
-                node.label = translation;
+            if (!(this.bilingualUi && this.hasBilingualDisplay(node.label))) {
+                const translation = this.translateUiText(node.label);
+                if (translation != null) {
+                    node.label = this.bilingualUi ? this.bilingualAttrValue(node.label, translation) : translation;
+                }
             }
             return;
         }
 
         // 导航链接，一体化处理，不再处理文本节点（原文使用子元素和媒体查询实现页面宽度改变时文本自动更改为缩写）
         if (isElement(node, 'a') && node?.parentElement?.parentElement?.id === 'nb') {
-            const translation = this.translateUiText(node.textContent ?? '');
-            if (translation != null) {
-                node.textContent = translation;
+            const text = node.textContent ?? '';
+            if (!(this.bilingualUi && this.hasBilingualDisplay(text))) {
+                const translation = this.translateUiText(text);
+                if (translation != null) {
+                    node.textContent = this.bilingualUi ? this.bilingualAttrValue(text, translation) : translation;
+                }
             }
         }
 

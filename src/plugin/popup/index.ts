@@ -33,6 +33,9 @@ interface PopupState {
     configValue: ConfigData;
 }
 
+/** 显示模式三态：原始 / 翻译 / 双语 */
+type DisplayMode = 'original' | 'translated' | 'bilingual';
+
 @Service()
 export class Popup {
     constructor(
@@ -226,6 +229,21 @@ export class Popup {
         };
     }
 
+    private getDisplayMode(translate: boolean, bilingual: boolean): DisplayMode {
+        if (!translate) return 'original';
+        return bilingual ? 'bilingual' : 'translated';
+    }
+
+    /** 三态映射到底层两个 boolean：原始 = 不翻译；翻译 = 翻译且不双语；双语 = 翻译且双语 */
+    private setDisplayMode(
+        translateKey: 'translateUi' | 'translateTag',
+        bilingualKey: 'bilingualUi' | 'bilingualTag',
+        mode: DisplayMode,
+    ): void {
+        this.changeConfigValue(translateKey, mode !== 'original');
+        this.changeConfigValue(bilingualKey, mode === 'bilingual');
+    }
+
     private changeConfigUnsaved(): boolean {
         if (!this.configOriginal) return false;
         const keys = [...Object.keys(this.configOriginal), ...Object.keys(this.state.configValue)] as Array<
@@ -239,19 +257,28 @@ export class Popup {
         await this.loadConfig();
         await sleep(200);
         this.provider.close();
+        // 显示模式（原始/翻译/双语）不做当前页面即时切换，保存后刷新从原始 DOM 重新渲染
+        location.reload();
     }
 
     private settingPanelTemplate(): TemplateResult {
         const state = this.state;
 
         const checkboxList: Array<{ key: keyof ConfigData; name: string }> = [
-            { key: 'translateUi', name: '翻译界面' },
-            { key: 'translateTag', name: '翻译标签' },
             { key: 'translateTimestamp', name: '翻译时间戳' },
             { key: 'showIntroduce', name: '标签介绍' },
             { key: 'showIcon', name: '显示标签图标' },
             { key: 'tagTip', name: '搜索提示' },
             { key: 'autoUpdate', name: '自动更新' },
+        ];
+        const modeGroups = [
+            { name: '全站 UI', translateKey: 'translateUi', bilingualKey: 'bilingualUi' },
+            { name: '标签', translateKey: 'translateTag', bilingualKey: 'bilingualTag' },
+        ] as const;
+        const displayModes: Array<{ key: DisplayMode; name: string }> = [
+            { key: 'original', name: '原始' },
+            { key: 'translated', name: '翻译' },
+            { key: 'bilingual', name: '双语' },
         ];
         return html`
             <div id="ehs-setting-panel" class="ehs-panel ${state.showSettingPanel ? 'ehs-show' : ''}">
@@ -270,6 +297,35 @@ export class Popup {
                     </div>
                 </div>
                 <form id="settingForm" class="content">
+                    ${modeGroups.map((group) => {
+                        const current = this.getDisplayMode(
+                            state.configValue[group.translateKey],
+                            state.configValue[group.bilingualKey],
+                        );
+                        return html`
+                            <div class="mode-group">
+                                <span class="mode-title">${group.name}</span>
+                                <div class="mode-options">
+                                    ${displayModes.map(
+                                        (mode) => html`
+                                            <button
+                                                type="button"
+                                                class="mode-option ${current === mode.key ? 'active' : ''}"
+                                                @click=${() =>
+                                                    this.setDisplayMode(
+                                                        group.translateKey,
+                                                        group.bilingualKey,
+                                                        mode.key,
+                                                    )}
+                                            >
+                                                ${mode.name}
+                                            </button>
+                                        `,
+                                    )}
+                                </div>
+                            </div>
+                        `;
+                    })}
                     ${checkboxList.map(
                         (item) => html`
                             <div class="checkbox-item">

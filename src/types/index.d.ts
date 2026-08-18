@@ -23,4 +23,3 @@ declare module '*.yaml' {
     export default value;
 }
 
-declare const browser: import('webextension-polyfill').Browser;

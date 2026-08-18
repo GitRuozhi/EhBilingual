@@ -1,33 +1,24 @@
 {
-    "name": "ehsyringe",
-    "displayName": "EhSyringe",
-    "version": "3.4.9",
-    "description": "E 站注射器，将中文翻译注入到 E 站体内。包含全站 UI 翻译和超过 42000 条标签翻译，标签数据库持续更新中。",
-    "author": "EhTagTranslation",
+    "name": "ehbilingual",
+    "displayName": "EhBilingual",
+    "version": "3.4.9-a",
+    "description": "E 站（E-Hentai / ExHentai / EHWiki）中英双语用户脚本，基于 EhSyringe 改造。全站 UI 与标签支持「原始 / 翻译 / 双语」三态切换，包含超过 42000 条标签翻译，标签数据库持续更新中。",
+    "author": "GitRuozhi",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/EhTagTranslation/EhSyringe.git"
+        "url": "git+https://github.com/GitRuozhi/EhBilingual.git"
     },
     "engines": {
         "node": "^22.22.0 || ^24.15.0"
     },
     "packageManager": "pnpm@11.11.0",
     "license": "MIT",
-    "bugs": "https://github.com/EhTagTranslation/EhSyringe/issues",
-    "homepage": "https://github.com/EhTagTranslation/EhSyringe",
+    "bugs": "https://github.com/GitRuozhi/EhBilingual/issues",
+    "homepage": "https://github.com/GitRuozhi/EhBilingual",
     "type": "module",
     "scripts": {
-        "start:monkey": "webpack serve --mode=development --env type=user-script",
-        "start:ext": "webpack --mode=development --watch --env type=web-ext",
-        "start:chrome": "pnpm run start:ext --env vendor=chrome",
-        "start:firefox": "pnpm run start:ext --env vendor=firefox",
-        "build": "webpack --mode=production",
-        "build:monkey": "pnpm run build --env type=user-script",
-        "build:ext": "pnpm run build --env type=web-ext",
-        "build:chrome": "pnpm run build:ext --env vendor=chrome",
-        "build:firefox": "pnpm run build:ext --env vendor=firefox",
-        "pack:chrome": "crx pack dist --zip-output releases/ehsyringe.chrome.zip && crx pack dist -o releases/ehsyringe.chrome.crx",
-        "pack:firefox": "web-ext build -s dist -a releases -n ehsyringe.firefox.xpi -o && web-ext build -s dist -a releases -n ehsyringe.firefox.zip -o",
+        "start:monkey": "webpack serve --mode=development",
+        "build:monkey": "webpack --mode=production",
         "lint": "eslint",
         "format": "prettier --ignore-path .gitignore --write .",
         "clean": "rimraf dist releases"
@@ -38,22 +29,15 @@
         "@babel/preset-env": "^7.29.7",
         "@babel/runtime-corejs3": "^7.29.7",
         "@eslint/js": "^10.0.1",
-        "@types/chrome": "^0.2.2",
         "@types/escape-html": "^1.0.4",
         "@types/node": "^26.1.1",
         "@types/tampermonkey": "^5.0.5",
-        "@types/webextension-polyfill": "^0.12.5",
-        "@webextension-toolbox/webpack-webextension-plugin": "^3.3.1",
         "babel-loader": "^10.1.1",
-        "copy-webpack-plugin": "^14.0.0",
-        "crx": "^5.0.1",
         "css-loader": "^7.1.4",
         "cssnano": "^8.0.2",
         "eslint": "^10.7.0",
         "eslint-config-prettier": "^10.1.8",
         "execa": "^9.6.1",
-        "glob": "^13.0.6",
-        "html-webpack-plugin": "^5.6.7",
         "less": "^4.6.7",
         "less-loader": "^13.0.0",
         "postcss": "^8.5.16",
@@ -69,7 +53,6 @@
         "type-fest": "^5.8.0",
         "typescript": "^6.0.3",
         "typescript-eslint": "^8.63.0",
-        "web-ext": "^10.5.0",
         "webpack": "^5.108.4",
         "webpack-bundle-analyzer": "^5.3.0",
         "webpack-cli": "^7.2.1",
@@ -84,7 +67,6 @@
         "lit-html": "^3.3.3",
         "rxjs": "^7.8.2",
         "tslib": "^2.8.1",
-        "typedi": "^0.10.0",
-        "webextension-polyfill": "^0.12.0"
+        "typedi": "^0.10.0"
     }
 }

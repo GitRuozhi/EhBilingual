@@ -1,5 +1,15 @@
 # 更新日志
 
+> 自 `3.4.9-a` 起为 EhBilingual（基于 EhSyringe fork 的双语改造版），此前版本为上游 [EhSyringe](https://github.com/EhTagTranslation/EhSyringe) 的历史记录。
+
+## 3.4.9-a
+
+- 自 EhSyringe v3.4.9 fork，正式更名为 **EhBilingual**（[GitRuozhi/EhBilingual](https://github.com/GitRuozhi/EhBilingual)）
+- 新增双语模式：全站 UI 与标签支持「原始 / 翻译 / 双语」三态切换（默认：UI=翻译、标签=双语）
+- 双语显示：短文本 `English | 中文`，长文本换行展示
+- 精简为纯用户脚本（UserScript）产物，移除浏览器扩展（web-ext）相关代码
+- 产物文件名由 `ehsyringe.user.js` 变更为 `ehbilingual.user.js`，旧版用户需重新安装
+
 ## 3.4.9
 
 - 更新翻译 [#1355](https://github.com/EhTagTranslation/EhSyringe/pull/1355) [#1358](https://github.com/EhTagTranslation/EhSyringe/pull/1358)

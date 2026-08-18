@@ -33,7 +33,7 @@ function main(): void {
 }
 
 // 为轻型用户脚本实现添加简单过滤
-const LOADED_KEY = `EhTagTranslation:EhSyringeLoaded`;
+const LOADED_KEY = `EhBilingual:EhBilingualLoaded`;
 if (!(LOADED_KEY in window)) {
     Object.defineProperty(window, LOADED_KEY, { value: true });
     if (isValidHost(location.hostname)) {

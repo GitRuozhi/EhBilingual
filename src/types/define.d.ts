@@ -1,1 +1,1 @@
-declare const __type: 'user-script' | 'web-ext';
+declare const __type: 'user-script';

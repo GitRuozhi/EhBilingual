@@ -26,7 +26,7 @@ function serialize(value: JsonValue | undefined): string | undefined {
 class AsyncPolyfill implements Storage {
     private listenerId = 1;
     private readonly listeners = new Map<number, { name: string; listener: Tampermonkey.ValueChangeListener }>();
-    private readonly store = createStore('EhSyringe', 'keyval');
+    private readonly store = createStore('EhBilingual', 'keyval');
     private async onAllStorageChange(): Promise<void> {
         const values = new Map<string, unknown>();
         for (const { name } of this.listeners.values()) {
