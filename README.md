@@ -4,7 +4,7 @@
 
 ## 安装 | Install
 
-1. 第一步：[安装用户脚本管理器 | Install a userscript manager](https://greasyfork.org/)
+1. 第一步：[安装用户脚本管理器 | Install a userscript manager](https://www.tampermonkey.net/)
 
 2. 第二步：[安装脚本 | Install the script](https://sleazyfork.org/zh-CN/scripts/591845-ehbilingual)
 
