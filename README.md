@@ -17,13 +17,13 @@
         <td><strong>搜索列表 | Search list</strong></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/Preview/search-list.jpeg" width="400"></td>
+        <td><img src="https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/Preview/search-list.jpeg?v=20260818b" width="400"></td>
     </tr>
     <tr>
         <td><strong>详情页 | Gallery detail</strong></td>
     </tr>
     <tr>
-        <td><img src="https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/Preview/gallery-detail.jpeg" width="400"></td>
+        <td><img src="https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/Preview/gallery-detail.jpeg?v=20260818b" width="400"></td>
     </tr>
     <tr>
         <td><strong>设置页 | Settings</strong></td>
