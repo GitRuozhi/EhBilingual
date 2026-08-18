@@ -4,11 +4,11 @@
 
 ## 安装 | Install
 
-1. [安装用户脚本管理器 | Install a userscript manager](https://greasyfork.org/)
+1. 第一步：[安装用户脚本管理器 | Install a userscript manager](https://greasyfork.org/)
 
-2. [安装脚本 | Install the script]（待发布 | Coming soon）
+2. 第二步：[安装脚本 | Install the script]（待发布 | Coming soon）
 
-> [访问 GitHub 获取源码 | Visit GitHub for Code](https://github.com/GitRuozhi/EhBilingual/)
+> 此外，您还可以：[访问 GitHub 获取源码 | Visit GitHub for Code](https://github.com/GitRuozhi/EhBilingual/)
 
 ## 预览 | Preview
 
