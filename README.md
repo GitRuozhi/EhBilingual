@@ -76,7 +76,7 @@ E 站（E-Hentai / ExHentai / EHWiki）中英双语用户脚本，基于 [EhSyri
 
 - 用户脚本脚本小工具合集 [EhTagTranslation/UserScripts](https://github.com/EhTagTranslation/UserScripts)
 
-## [更新日志](CHANGELOG.md)
+## [上游同步](UPSTREAM.md)
 
 ## 开发
 
@@ -87,7 +87,6 @@ E 站（E-Hentai / ExHentai / EHWiki）中英双语用户脚本，基于 [EhSyri
 
 ### 发布新版本
 
-1. 编辑 `CHANGELOG.md` 并加入暂存区
-2. 运行 `pnpm version --no-git-checks <new-version>` 更新版本号
-3. 运行 `git push --follow-tags` 推送新版本
-4. 等待 GitHub Actions 自动编译并发布新版本
+1. 运行 `pnpm version --no-git-checks <new-version>` 更新版本号
+2. 运行 `git push --follow-tags` 推送新版本
+3. 等待 GitHub Actions 自动编译并发布新版本

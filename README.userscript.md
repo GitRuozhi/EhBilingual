@@ -68,4 +68,4 @@ E 站（E-Hentai / ExHentai / EHWiki）中英双语用户脚本，基于 [EhSyri
 
 - 用户脚本脚本小工具合集 <https://github.com/EhTagTranslation/UserScripts>
 
-## [更新日志](https://github.com/GitRuozhi/EhBilingual/blob/master/CHANGELOG.md)
+## [上游同步](https://github.com/GitRuozhi/EhBilingual/blob/master/UPSTREAM.md)
