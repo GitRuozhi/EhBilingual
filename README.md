@@ -6,7 +6,7 @@
 
 [访问 GitHub Releases 进行安装 | Visit GitHub Releases for installation](https://github.com/GitRuozhi/EhBilingual/releases)
 
-[直接下载最新版 | Download the latest build](https://github.com/GitRuozhi/EhBilingual/releases/latest/download/ehbilingual.user.js)
+[直接下载 v3.4.9-a | Download v3.4.9-a](https://github.com/GitRuozhi/EhBilingual/releases/download/v3.4.9-a/ehbilingual.user.js)
 
 [访问 GitHub 获取源码 | Visit GitHub for Code](https://github.com/GitRuozhi/EhBilingual/)
 
