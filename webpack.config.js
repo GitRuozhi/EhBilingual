@@ -53,6 +53,10 @@ export default async (env = {}, argv = {}) => {
                 {
                     include: [path.resolve(__dirname, 'src/assets')],
                     type: 'asset',
+                    // 用户脚本是单文件产物，资源必须内联，不能被输出为独立文件
+                    parser: {
+                        dataUrlCondition: { maxSize: 32 * 1024 },
+                    },
                 },
                 {
                     test: /\.js$/,
