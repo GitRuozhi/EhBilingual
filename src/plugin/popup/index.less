@@ -103,24 +103,24 @@
         }
     }
     .logo svg {
-        @sa: lighten(average(@accent, @background), 10%);
+        // 动画针筒配色与新 Logo 一致：白色针管 + 黑色针头/描边（原为紫色 @accent）
         [fill-bg] {
             fill: @background;
         }
         [fill-accent] {
-            fill: @accent;
+            fill: #000;
         }
         [fill-sa] {
-            fill: @sa;
+            fill: #000;
         }
         [stroke-bg] {
             stroke: @background;
         }
         [stroke-accent] {
-            stroke: @accent;
+            stroke: #000;
         }
         [stroke-sa] {
-            stroke: @sa;
+            stroke: #000;
         }
     }
 
