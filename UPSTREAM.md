@@ -4,16 +4,23 @@
 
 **共享（两边保持一致，本分支不修改）**
 
-- 标签翻译数据库：`EhTagTranslation/Database`（脚本内自动更新）
+- 标签翻译数据库：`EhTagTranslation/Database`（脚本内自动更新，无需手动同步）
 - UI 翻译词典：`src/services/ui-translation/data/**`
-- 标签介绍、搜索提示、数据库更新等核心功能
+- 标签介绍、搜索提示、数据库更新、时间戳翻译等核心功能
 
-**区别（本分支独有）**
+**区别**
 
-- 仅用户脚本产物（无浏览器扩展）
-- UI 与标签支持「原始 / 翻译 / 双语」三态（默认 UI=翻译、标签=双语）
-- 版本号 = 上游版本 + `-a`（如 `3.4.9-a`）
-- 身份：EhBilingual / GitRuozhi
+| 项目 | 主分支 EhSyringe | 本分支 EhBilingual |
+| ---- | ---------------- | ------------------ |
+| 仓库 | `EhTagTranslation/EhSyringe` | `GitRuozhi/EhBilingual` |
+| 产物 | 浏览器扩展（web-ext）+ 用户脚本 | **仅用户脚本**（`ehbilingual.user.js`） |
+| 全站 UI | 原始 / 翻译 两态 | 原始 / 翻译 / **双语** 三态 |
+| 标签翻译 | 原始 / 翻译 两态 | 原始 / 翻译 / **双语** 三态 |
+| 默认配置 | UI=翻译、标签=翻译 | UI=**翻译**、标签=**双语** |
+| 版本号 | 如 `3.4.9` | 上游版本 + `-a`（如 `3.4.9-a`），CI 发布为 prerelease |
+| 身份 | EhSyringe / EhTagTranslation | EhBilingual / GitRuozhi |
+| 更新日志 | 维护 `CHANGELOG.md` | 已移除，历史见上游仓库 |
+| 双语格式 | 无 | 短文本 `English | 中文`，长文本换行 |
 
 ## 二、更新方式
 
