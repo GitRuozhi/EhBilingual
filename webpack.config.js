@@ -215,7 +215,7 @@ export default async (env = {}, argv = {}) => {
                     version: dev ? `${pkgJson.version}+build.${currentHEAD}` : pkgJson.version,
                     author: pkgJson.author,
                     description: pkgJson.description,
-                    icon: `https://fastly.jsdelivr.net/gh/${repo}@${currentHEAD}/src/assets/logo.svg`,
+                    icon: `https://raw.githubusercontent.com/${repo}/master/src/assets/logo.svg`,
                     license: pkgJson.license,
                     namespace: pkgJson.homepage,
                     homepage: pkgJson.homepage,

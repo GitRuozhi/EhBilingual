@@ -1,33 +1,14 @@
 {
-    "manifest_version": 3,
-    "__firefox__browser_specific_settings": {
-        "gecko": {
-            "id": "{759d5566-1dce-41ae-bae9-00dd5172c422}",
-            "strict_min_version": "106.0"
-        }
-    },
-    "icons": {
-        "32": "assets/logo32.png",
-        "16": "assets/logo16.png",
-        "48": "assets/logo48.png",
-        "128": "assets/logo128.png"
-    },
-    "omnibox": {
-        "keyword": "ex"
-    },
-    "background": {
-        "__chrome__service_worker": "script/background.js",
-        "__firefox__scripts": ["script/background.js"]
-    },
-    "action": {
-        "default_icon": {
-            "32": "assets/logo32.png",
-            "16": "assets/logo16.png",
-            "48": "assets/logo48.png",
-            "128": "assets/logo128.png"
-        },
-        "default_popup": "assets/popup.html"
-    },
+    "host_permissions": [
+        "*://exhentai.org/*",
+        "*://exhentai55ld2wyap5juskbm67czulomrouspdacjamjeloj7ugjbsad.onion/*",
+        "*://e-hentai.org/*",
+        "*://*.exhentai.org/*",
+        "*://*.exhentai55ld2wyap5juskbm67czulomrouspdacjamjeloj7ugjbsad.onion/*",
+        "*://*.e-hentai.org/*",
+        "*://*.hath.network/*",
+        "*://ehwiki.org/*"
+    ],
     "content_scripts": [
         {
             "matches": [
@@ -40,20 +21,7 @@
                 "*://*.hath.network/*",
                 "*://ehwiki.org/*"
             ],
-            "exclude_matches": ["*://forums.e-hentai.org/*"],
-            "js": ["script/page.js"],
-            "run_at": "document_start"
+            "exclude_matches": ["*://forums.e-hentai.org/*"]
         }
-    ],
-    "permissions": ["activeTab", "notifications", "storage", "unlimitedStorage", "contextMenus"],
-    "host_permissions": [
-        "*://exhentai.org/*",
-        "*://exhentai55ld2wyap5juskbm67czulomrouspdacjamjeloj7ugjbsad.onion/*",
-        "*://e-hentai.org/*",
-        "*://*.exhentai.org/*",
-        "*://*.exhentai55ld2wyap5juskbm67czulomrouspdacjamjeloj7ugjbsad.onion/*",
-        "*://*.e-hentai.org/*",
-        "*://*.hath.network/*",
-        "*://ehwiki.org/*"
     ]
 }
