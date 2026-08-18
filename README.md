@@ -24,6 +24,14 @@
         <td><img src="Preview/search-list.jpeg" width="400"></td>
         <td><img src="Preview/gallery-detail.jpeg" width="400"></td>
     </tr>
+    <tr>
+        <td><strong>设置页 | Settings</strong></td>
+        <td><strong>标签介绍 | Tag introduction（待补充 | Pending）</strong></td>
+    </tr>
+    <tr>
+        <td><img src="Preview/settings.jpeg" width="400"></td>
+        <td></td>
+    </tr>
 </table>
 
 ## 说明 | Description
