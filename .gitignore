@@ -2,7 +2,8 @@
 
 # compiled output
 /dist
-/releases
+# releases/ 产物提交进仓库供 GreasyFork 固定路径引用，仅忽略 sourcemap
+/releases/*.map
 /key.pem
 
 # dependencies

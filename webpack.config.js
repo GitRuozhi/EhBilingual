@@ -170,7 +170,7 @@ export default async (env = {}, argv = {}) => {
         ? `${config.devServer.https ? 'https' : 'http'}://${config.devServer.host || 'localhost'}:${
               config.devServer.port || 8080
           }`
-        : `${pkgJson.homepage}/releases/download/v${pkgJson.version}`;
+        : `https://raw.githubusercontent.com/${repo}/master/releases`;
     /**
      * @param {string} chunkName
      * @param {boolean} meta
