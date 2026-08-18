@@ -1,7 +1,7 @@
 {
     "name": "ehbilingual",
     "displayName": "EhBilingual",
-    "version": "3.4.9-a",
+    "version": "3.4.9-20260818a",
     "description": "E 站（E-Hentai / ExHentai / EHWiki）中英双语用户脚本，基于 EhSyringe 改造。全站 UI 与标签支持「原始 / 翻译 / 双语」三态切换，包含超过 42000 条标签翻译，标签数据库持续更新中。",
     "author": "GitRuozhi",
     "repository": {
