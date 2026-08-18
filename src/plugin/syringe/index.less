@@ -178,6 +178,14 @@ body {
     }
 }
 
+// 紧凑 + 标签模式：原站 .gl3c>a>div 固定 height:20px + overflow:hidden，
+// 双语两行时需让标签容器（第二个 div）按内容自然增高（overflow:hidden 仍会包住 float 的 .gt）
+:root.ehs-bilingual-tag table.itg.gltc {
+    .gl3c > a > div:nth-child(2) {
+        height: auto !important;
+    }
+}
+
 [ehs-icon],
 [ehs-emoji] {
     max-height: 1.25em !important;

@@ -234,7 +234,27 @@ class TagNodeRef {
         }
         if (this.service.config.bilingualTag) {
             // 双语：英文原文作为文本安全转义，中文译文继续使用处理后的 HTML
-            this.node.innerHTML = `${escapeHtml(this.original)} | ${value}`;
+            const original = escapeHtml(this.original);
+            if (this.node.classList.contains('ehs-new-tag-complete-translate')) {
+                // My Tags 自动补全的专用译文节点：original 为空，本节点只负责显示第二行译文
+                this.node.innerHTML = value;
+            } else if (this.node.id.startsWith('tagpreview_')) {
+                // My Tags 标签编辑列表的标签预览：固定行高 + 单行省略号的编辑网格，保持单行
+                this.node.innerHTML = `${original} | ${value}`;
+            } else if (
+                this.node.classList.contains('gt') ||
+                this.node.classList.contains('gtl') ||
+                this.node.classList.contains('gtw') ||
+                this.node.parentElement?.classList.contains('gt') ||
+                this.node.parentElement?.classList.contains('gtl') ||
+                this.node.parentElement?.classList.contains('gtw')
+            ) {
+                // EH/EX 标准标签 UI：上下两行（详情页标签是 <a id="ta_*">，gt 类在父级 div 上）
+                this.node.innerHTML = `${original}<br>${value}`;
+            } else {
+                // Wiki / generic tag 链接 / 其他未知行内场景：保持单行
+                this.node.innerHTML = `${original} | ${value}`;
+            }
         } else {
             this.node.innerHTML = value;
         }

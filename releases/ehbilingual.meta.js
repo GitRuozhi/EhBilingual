@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         EhBilingual
-// @version      3.4.9-20260818a
+// @version      3.4.9-20260818b
 // @author       GitRuozhi
 // @description  E 站中英双语标签+双语页面，English | Chinese bilingual userscript for E-Hentai / ExHentai / EHWiki ，保留英文原文的同时显示中文翻译，支持「原始 / 翻译 / 双语」三态切换。
 // @icon         https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/src/assets/logo.svg
