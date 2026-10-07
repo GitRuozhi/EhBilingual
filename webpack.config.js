@@ -1,13 +1,14 @@
 // @ts-check
 import path from 'node:path';
 import fs from 'node:fs';
-import { execaCommandSync } from 'execa';
+import { execaSync } from 'execa';
 import semver from 'semver';
 import webpack from 'webpack';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
 import pkgJson from './package.json' with { type: 'json' };
 import manifestJson from './manifest.json' with { type: 'json' };
+import coreJsPkg from 'core-js/package.json' with { type: 'json' };
 
 const __dirname = import.meta.dirname;
 
@@ -31,6 +32,32 @@ const cssLoaders = [
             postcssOptions: {
                 plugins: ['postcss-import', 'postcss-preset-env', 'cssnano'],
             },
+        },
+    },
+];
+
+/** @type {webpack.RuleSetUseItem[]} */
+const jsLoaders = [
+    {
+        loader: 'babel-loader',
+        options: {
+            sourceType: 'unambiguous',
+            presets: ['@babel/preset-env'],
+            plugins: [
+                [
+                    '@babel/plugin-transform-runtime',
+                    {
+                        moduleName: '@babel/runtime',
+                    },
+                ],
+                [
+                    'babel-plugin-polyfill-corejs3',
+                    {
+                        method: 'usage-global',
+                        version: coreJsPkg.version,
+                    },
+                ],
+            ],
         },
     },
 ];
@@ -62,31 +89,12 @@ export default async (env = {}, argv = {}) => {
                     test: /\.js$/,
                     include: /[/\\]node_modules[/\\]/,
                     exclude: [/[/\\]core-js(-pure)?[/\\]/],
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: {
-                                sourceType: 'unambiguous',
-                                presets: ['@babel/preset-env'],
-                                plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
-                            },
-                        },
-                    ],
+                    use: jsLoaders,
                 },
                 {
                     test: /\.ts$/,
                     exclude: /[/\\]node_modules[/\\]/,
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: {
-                                sourceType: 'unambiguous',
-                                presets: ['@babel/preset-env'],
-                                plugins: [['@babel/plugin-transform-runtime', { corejs: 3 }]],
-                            },
-                        },
-                        'ts-loader',
-                    ],
+                    use: [...jsLoaders, 'ts-loader'],
                 },
                 {
                     test: /\.less$/,
@@ -165,7 +173,7 @@ export default async (env = {}, argv = {}) => {
     }
 
     config.optimization.minimize = false;
-    const currentHEAD = execaCommandSync('git rev-parse HEAD').stdout.trim();
+    const currentHEAD = execaSync`git rev-parse HEAD`.stdout.trim();
     const fileHost = devServer
         ? `${config.devServer.https ? 'https' : 'http'}://${config.devServer.host || 'localhost'}:${
               config.devServer.port || 8080
