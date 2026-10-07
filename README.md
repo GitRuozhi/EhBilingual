@@ -49,7 +49,7 @@
 
 - 兼容 E-Hentai-Downloader、熊猫书签、ExResurrect 等第三方脚本，支持 Via、Alook 等手机浏览器。<br><sub>Compatible with E-Hentai-Downloader, Panda bookmarklet, ExResurrect and other third-party scripts, and supports mobile browsers such as Via and Alook.</sub>
 
-- 修改基于版本：`3.4.9`，本分支版本号：`3.4.9-20260818b`。<br><sub>Revised based on version: `3.4.9`, this branch version number: `3.4.9-20260818b`.</sub>
+- 修改基于版本：`3.5.2`，本分支版本号：`3.5.2-20261007a`。<br><sub>Revised based on version: `3.5.2`, this branch version number: `3.5.2-20261007a`.</sub>
 
 ## 感谢 | Thanks
 
