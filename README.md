@@ -51,6 +51,13 @@
 
 - 修改基于版本：`3.5.2`，本分支版本号：`3.5.2-20261105a`。<br><sub>Revised based on version: `3.5.2`, this branch version number: `3.5.2-20261105a`.</sub>
 
+## 更新日志
+
+V3.5.2-20261105a：
+
+- 修复双语模式下，部分动态文本重复显示中文的问题。
+- 修复页面内容更新后，旧译文残留的问题。
+
 ## 感谢 | Thanks
 
 感谢各位绅士，感谢 EhSyringe 的各位贡献者。<br><sub>Thanks to all gentlemen and the contributors of EhSyringe.</sub>
