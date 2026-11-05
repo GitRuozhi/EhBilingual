@@ -621,22 +621,68 @@ export class Syringe {
         return formatBilingualText(original, translation).replace('\n', ' | ');
     }
 
-    /**
-     * 文本节点双语：保留原文本节点不改动，将译文以 eh-syringe-ignore 标记的 span 追加到原文之后。
-     * 原文未动不产生新 mutation，注入的 span 命中 skipElementMatcher，两者都防止重复加工。
-     */
-    private appendBilingual(node: Text, original: string, translation: string): void {
-        const span = document.createElement('span');
-        span.classList.add(ignoreClassName);
-        if (original.length < BILINGUAL_SHORT_MAX) {
-            span.textContent = ` | ${translation}`;
-        } else {
-            span.append(document.createElement('br'), translation);
+    private readonly bilingualTextNodes = new WeakMap<
+        Text,
+        {
+            span: HTMLSpanElement;
+            original: string;
+            translation: string;
         }
-        node.after(span);
+    >();
+
+    private readonly bilingualTextSources = new WeakMap<HTMLSpanElement, Text>();
+
+    private clearBilingual(node: Text): void {
+        const display = this.bilingualTextNodes.get(node);
+        if (display) {
+            display.span.remove();
+            this.bilingualTextSources.delete(display.span);
+            this.bilingualTextNodes.delete(node);
+        }
+    }
+
+    private clearReplacedBilingual(node: Node): void {
+        const next = node.nextSibling;
+        if (isElement(next, 'span')) {
+            const source = this.bilingualTextSources.get(next);
+            if (source && source !== node) {
+                if (source.parentNode === node.parentNode) {
+                    source.after(next);
+                } else {
+                    this.clearBilingual(source);
+                }
+            }
+        }
+    }
+
+    /** 保留原文；重复扫描复用译文节点，原文或位置变化时更新已有节点。 */
+    private appendBilingual(node: Text, original: string, translation: string): void {
+        let display = this.bilingualTextNodes.get(node);
+        if (!display) {
+            const span = document.createElement('span');
+            span.classList.add(ignoreClassName);
+            display = { span, original: '', translation: '' };
+            this.bilingualTextNodes.set(node, display);
+            this.bilingualTextSources.set(span, node);
+        }
+        const { span } = display;
+        if (display.original !== original || display.translation !== translation) {
+            span.textContent = '';
+            if (original.length < BILINGUAL_SHORT_MAX) {
+                span.textContent = ` | ${translation}`;
+            } else {
+                span.append(document.createElement('br'), translation);
+            }
+            display.original = original;
+            display.translation = translation;
+        }
+        if (node.nextSibling !== span) {
+            node.after(span);
+        }
     }
 
     translateUi(node: Node): void {
+        if (this.bilingualUi) this.clearReplacedBilingual(node);
         if (isElement(node) && node.title && typeof node.title == 'string') {
             if (!(this.bilingualUi && this.hasBilingualDisplay(node.title))) {
                 const translation = this.translateUiText(node.title);
@@ -647,14 +693,19 @@ export class Syringe {
         }
         if (isText(node)) {
             const text = node.textContent ?? '';
-            if (this.bilingualUi && this.hasBilingualDisplay(text)) return;
+            if (this.bilingualUi && this.hasBilingualDisplay(text)) {
+                this.clearBilingual(node);
+                return;
+            }
             const translation = this.translateUiText(text);
-            if (translation != null) {
-                if (this.bilingualUi) {
+            if (this.bilingualUi) {
+                if (translation != null) {
                     this.appendBilingual(node, text, translation);
                 } else {
-                    node.textContent = translation;
+                    this.clearBilingual(node);
                 }
+            } else if (translation != null) {
+                node.textContent = translation;
             }
             return;
         }

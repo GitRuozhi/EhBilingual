@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         EhBilingual
-// @version      3.5.2-20261007a
+// @version      3.5.2-20261105a
 // @author       GitRuozhi
 // @description  E 站中英双语标签+双语页面，English | Chinese bilingual userscript for E-Hentai / ExHentai / EHWiki ，保留英文原文的同时显示中文翻译，支持「原始 / 翻译 / 双语」三态切换。
 // @icon         https://raw.githubusercontent.com/GitRuozhi/EhBilingual/master/src/assets/logo.svg
@@ -20564,6 +20564,14 @@ let TagTip = class TagTip {
 };
 TagTip = __decorate([Service(), __metadata("design:paramtypes", [Storage, Logger, messaging_Messaging, Tagging])], TagTip);
 
+// EXTERNAL MODULE: ./node_modules/.pnpm/core-js@3.50.0/node_modules/core-js/modules/es.weak-map.js
+var es_weak_map = __webpack_require__(5643);
+;// ./node_modules/.pnpm/core-js@3.50.0/node_modules/core-js/modules/es.weak-map.get-or-insert.js
+es_weak_map_get_or_insert_namespaceFn();
+
+;// ./node_modules/.pnpm/core-js@3.50.0/node_modules/core-js/modules/es.weak-map.get-or-insert-computed.js
+es_weak_map_get_or_insert_computed_namespaceFn();
+
 ;// ./node_modules/.pnpm/core-js@3.50.0/node_modules/core-js/modules/web.url.js
 web_url_namespaceFn();
 
@@ -23001,7 +23009,7 @@ let UiTranslation = class UiTranslation {
 UiTranslation = __decorate([Service(), __metadata("design:paramtypes", [Logger])], UiTranslation);
 
 ;// ./package.json
-const package_namespaceObject = /*#__PURE__*/JSON.parse('{"name":"ehbilingual","displayName":"EhBilingual","version":"3.5.2-20261007a","description":"E 站中英双语标签+双语页面，English | Chinese bilingual userscript for E-Hentai / ExHentai / EHWiki ，保留英文原文的同时显示中文翻译，支持「原始 / 翻译 / 双语」三态切换。","author":"GitRuozhi","repository":{"type":"git","url":"git+https://github.com/GitRuozhi/EhBilingual.git"},"engines":{"node":"^24.21.0"},"packageManager":"pnpm@12.8.1","license":"MIT","bugs":"https://github.com/GitRuozhi/EhBilingual/issues","homepage":"https://github.com/GitRuozhi/EhBilingual","type":"module","scripts":{"start:monkey":"webpack serve --mode=development","build:monkey":"webpack --mode=production","lint":"eslint","format":"prettier --ignore-path .gitignore --write .","clean":"rimraf dist releases"},"devDependencies":{"@babel/core":"^8.0.6","@babel/plugin-transform-runtime":"^8.0.6","@babel/preset-env":"^8.0.6","@babel/runtime":"^8.0.5","@eslint/js":"^10.0.1","@types/escape-html":"^1.0.4","@types/node":"^26.6.3","@types/tampermonkey":"^5.5.0","babel-loader":"^10.1.1","babel-plugin-polyfill-corejs3":"^1.0.0","css-loader":"^7.1.5","cssnano":"^9.0.5","eslint":"^10.11.0","eslint-config-prettier":"^10.1.8","execa":"^10.0.1","less":"^4.9.1","less-loader":"^13.0.0","postcss":"^8.5.28","postcss-import":"^17.0.0","postcss-loader":"^8.2.1","postcss-preset-env":"^11.5.4","prettier":"^3.9.9","rimraf":"^6.1.3","semver":"^7.8.5","style-loader":"^4.0.0","ts-loader":"^9.6.2","tsconfig-paths-webpack-plugin":"^4.2.0","type-fest":"^5.10.0","typescript":"^6.0.3","typescript-eslint":"^8.71.0","webpack":"^5.111.1","webpack-bundle-analyzer":"^5.4.0","webpack-cli":"^7.2.3","webpack-dev-server":"^6.0.0","yaml-loader":"^0.9.0"},"dependencies":{"core-js":"^3.50.0","emoji-regex":"^11.0.0","escape-html":"^1.0.3","idb-keyval":"^6.3.0","lit-html":"^3.3.3","rxjs":"^7.8.2","tslib":"^2.8.1","typedi":"^0.10.0"}}');
+const package_namespaceObject = /*#__PURE__*/JSON.parse('{"name":"ehbilingual","displayName":"EhBilingual","version":"3.5.2-20261105a","description":"E 站中英双语标签+双语页面，English | Chinese bilingual userscript for E-Hentai / ExHentai / EHWiki ，保留英文原文的同时显示中文翻译，支持「原始 / 翻译 / 双语」三态切换。","author":"GitRuozhi","repository":{"type":"git","url":"git+https://github.com/GitRuozhi/EhBilingual.git"},"engines":{"node":"^24.21.0"},"packageManager":"pnpm@12.8.1","license":"MIT","bugs":"https://github.com/GitRuozhi/EhBilingual/issues","homepage":"https://github.com/GitRuozhi/EhBilingual","type":"module","scripts":{"start:monkey":"webpack serve --mode=development","build:monkey":"webpack --mode=production","lint":"eslint","format":"prettier --ignore-path .gitignore --write .","clean":"rimraf dist releases"},"devDependencies":{"@babel/core":"^8.0.6","@babel/plugin-transform-runtime":"^8.0.6","@babel/preset-env":"^8.0.6","@babel/runtime":"^8.0.5","@eslint/js":"^10.0.1","@types/escape-html":"^1.0.4","@types/node":"^26.6.3","@types/tampermonkey":"^5.5.0","babel-loader":"^10.1.1","babel-plugin-polyfill-corejs3":"^1.0.0","css-loader":"^7.1.5","cssnano":"^9.0.5","eslint":"^10.11.0","eslint-config-prettier":"^10.1.8","execa":"^10.0.1","less":"^4.9.1","less-loader":"^13.0.0","postcss":"^8.5.28","postcss-import":"^17.0.0","postcss-loader":"^8.2.1","postcss-preset-env":"^11.5.4","prettier":"^3.9.9","rimraf":"^6.1.3","semver":"^7.8.5","style-loader":"^4.0.0","ts-loader":"^9.6.2","tsconfig-paths-webpack-plugin":"^4.2.0","type-fest":"^5.10.0","typescript":"^6.0.3","typescript-eslint":"^8.71.0","webpack":"^5.111.1","webpack-bundle-analyzer":"^5.4.0","webpack-cli":"^7.2.3","webpack-dev-server":"^6.0.0","yaml-loader":"^0.9.0"},"dependencies":{"core-js":"^3.50.0","emoji-regex":"^11.0.0","escape-html":"^1.0.3","idb-keyval":"^6.3.0","lit-html":"^3.3.3","rxjs":"^7.8.2","tslib":"^2.8.1","typedi":"^0.10.0"}}');
 ;// ./src/info.ts
 
 const packageJson = package_namespaceObject;
@@ -23177,6 +23185,9 @@ var syringe_update = injectStylesIntoStyleTag_default()()(syringe/* default */.A
        /* harmony default export */ const plugin_syringe = (syringe/* default */.A && syringe/* default */.A.locals ? syringe/* default */.A.locals : undefined);
 
 ;// ./src/plugin/syringe/index.ts
+
+
+
 
 
 
@@ -23417,6 +23428,8 @@ let Syringe = class Syringe {
     this.isEh = isEh(location.hostname);
     this.isRepo = isRepo(location.hostname);
     this.isWiki = isWiki(location.hostname);
+    this.bilingualTextNodes = new WeakMap();
+    this.bilingualTextSources = new WeakMap();
     storage.async.on('config', (k, ov, nv) => {
       if (nv) this.updateConfig(nv);
     });
@@ -23711,22 +23724,61 @@ let Syringe = class Syringe {
   bilingualAttrValue(original, translation) {
     return formatBilingualText(original, translation).replace('\n', ' | ');
   }
-  /**
-   * 文本节点双语：保留原文本节点不改动，将译文以 eh-syringe-ignore 标记的 span 追加到原文之后。
-   * 原文未动不产生新 mutation，注入的 span 命中 skipElementMatcher，两者都防止重复加工。
-   */
-  appendBilingual(node, original, translation) {
-    const span = document.createElement('span');
-    span.classList.add(ignoreClassName);
-    if (original.length < BILINGUAL_SHORT_MAX) {
-      span.textContent = ` | ${translation}`;
-    } else {
-      span.append(document.createElement('br'), translation);
+  clearBilingual(node) {
+    const display = this.bilingualTextNodes.get(node);
+    if (display) {
+      display.span.remove();
+      this.bilingualTextSources.delete(display.span);
+      this.bilingualTextNodes.delete(node);
     }
-    node.after(span);
+  }
+  clearReplacedBilingual(node) {
+    const next = node.nextSibling;
+    if (isElement(next, 'span')) {
+      const source = this.bilingualTextSources.get(next);
+      if (source && source !== node) {
+        if (source.parentNode === node.parentNode) {
+          source.after(next);
+        } else {
+          this.clearBilingual(source);
+        }
+      }
+    }
+  }
+  /** 保留原文；重复扫描复用译文节点，原文或位置变化时更新已有节点。 */
+  appendBilingual(node, original, translation) {
+    let display = this.bilingualTextNodes.get(node);
+    if (!display) {
+      const span = document.createElement('span');
+      span.classList.add(ignoreClassName);
+      display = {
+        span,
+        original: '',
+        translation: ''
+      };
+      this.bilingualTextNodes.set(node, display);
+      this.bilingualTextSources.set(span, node);
+    }
+    const {
+      span
+    } = display;
+    if (display.original !== original || display.translation !== translation) {
+      span.textContent = '';
+      if (original.length < BILINGUAL_SHORT_MAX) {
+        span.textContent = ` | ${translation}`;
+      } else {
+        span.append(document.createElement('br'), translation);
+      }
+      display.original = original;
+      display.translation = translation;
+    }
+    if (node.nextSibling !== span) {
+      node.after(span);
+    }
   }
   translateUi(node) {
     var _node$parentElement2;
+    if (this.bilingualUi) this.clearReplacedBilingual(node);
     if (isElement(node) && node.title && typeof node.title == 'string') {
       if (!(this.bilingualUi && this.hasBilingualDisplay(node.title))) {
         const translation = this.translateUiText(node.title);
@@ -23738,14 +23790,19 @@ let Syringe = class Syringe {
     if (isText(node)) {
       var _node$textContent3;
       const text = (_node$textContent3 = node.textContent) !== null && _node$textContent3 !== void 0 ? _node$textContent3 : '';
-      if (this.bilingualUi && this.hasBilingualDisplay(text)) return;
+      if (this.bilingualUi && this.hasBilingualDisplay(text)) {
+        this.clearBilingual(node);
+        return;
+      }
       const translation = this.translateUiText(text);
-      if (translation != null) {
-        if (this.bilingualUi) {
+      if (this.bilingualUi) {
+        if (translation != null) {
           this.appendBilingual(node, text, translation);
         } else {
-          node.textContent = translation;
+          this.clearBilingual(node);
         }
+      } else if (translation != null) {
+        node.textContent = translation;
       }
       return;
     }
@@ -25056,14 +25113,6 @@ var es_reflect_set = __webpack_require__(5385);
 ;// ./node_modules/.pnpm/core-js@3.50.0/node_modules/core-js/modules/es.string.split.js
 es_string_split_namespaceFn();
 
-// EXTERNAL MODULE: ./node_modules/.pnpm/core-js@3.50.0/node_modules/core-js/modules/es.weak-map.js
-var es_weak_map = __webpack_require__(5643);
-;// ./node_modules/.pnpm/core-js@3.50.0/node_modules/core-js/modules/es.weak-map.get-or-insert.js
-es_weak_map_get_or_insert_namespaceFn();
-
-;// ./node_modules/.pnpm/core-js@3.50.0/node_modules/core-js/modules/es.weak-map.get-or-insert-computed.js
-es_weak_map_get_or_insert_computed_namespaceFn();
-
 ;// ./node_modules/.pnpm/lit-html@3.3.3/node_modules/lit-html/lit-html.js
 var _t$litHtmlVersions;
 
@@ -26187,4 +26236,4 @@ if (!(LOADED_KEY in window)) {
 }
 /******/ })()
 ;
-//# sourceMappingURL=https://github.com/GitRuozhi/EhBilingual/releases/download/v3.5.2-20261007a/ehbilingual.user.js.map
+//# sourceMappingURL=https://github.com/GitRuozhi/EhBilingual/releases/download/v3.5.2-20261105a/ehbilingual.user.js.map
